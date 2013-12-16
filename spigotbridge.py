@@ -5,18 +5,17 @@ __module_version__ = "0.1"
 __module_description__ = "Changes how BridgeBabe's messages are displayed"
 
 def chanmessage(word, word_eol, userdata):
-	if hexchat.nickcmp(hexchat.strip(word[0]), "B") == 0 and word[1][0] == "(":
-		w = word[1][1:]
-		name = "." + w[:w.index(')')]
-		message = w[w.index(')') + 2:]
-		mode = ""
-		if name[0] in "@+&~%":
-			mode = name[0]
-			name = name[1:]
-		hexchat.emit_print(userdata['out'], name, message, mode)
+	nick = word[0]
+	message = word[1]
+	if hexchat.nickcmp(hexchat.strip(nick), "B") == 0 and message.startswith("("):
+		
+		name = "." + message[1:message.index(')')]
+		message = message[message.index(')') + 2:]
+		mode = name[1] if name[1] in "@+&~%" else ""
+
+		hexchat.emit_print(userdata, name, message, mode)
 		return hexchat.EAT_HEXCHAT
 	return hexchat.EAT_NONE
 
-hexchat.hook_print("Channel Message", chanmessage, userdata={'out':"Channel Message"})
-hexchat.hook_print("Channel Msg Hilight", chanmessage, userdata={'out':"Channel Msg Hilight"})
-
+hexchat.hook_print("Channel Message", chanmessage, "Channel Message")
+hexchat.hook_print("Channel Msg Hilight", chanmessage, "Channel Msg Hilight")
