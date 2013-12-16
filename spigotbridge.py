@@ -5,7 +5,7 @@ __module_version__ = "0.1"
 __module_description__ = "Changes how BridgeBabe's messages are displayed"
 
 def chanmessage(word, word_eol, userdata):
-	if hexchat.nickcmp(hexchat.strip(word[0]), "B") == 0:
+	if hexchat.nickcmp(hexchat.strip(word[0]), "B") == 0 and "(" in word[1]:
 		w = word[1][1:]
 		name = "." + w[:w.index(')')]
 		message = w[w.index(')') + 2:]
