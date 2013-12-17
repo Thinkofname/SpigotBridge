@@ -19,3 +19,5 @@ def chanmessage(word, word_eol, userdata):
 
 hexchat.hook_print("Channel Message", chanmessage, "Channel Message")
 hexchat.hook_print("Channel Msg Hilight", chanmessage, "Channel Msg Hilight")
+hexchat.hook_print("Channel Action", chanmessage, "Channel Action")
+hexchat.hook_print("Channel Action Hilight", chanmessage, "Channel Action Hilight")
